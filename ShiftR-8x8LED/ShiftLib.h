@@ -2,7 +2,9 @@
 #define SHIFTLIB_H
 #include <Arduino.h>
 
-byte * reverseBitOrder(byte img[]); //reverses bit order for each byte of img
+byte * flipX(byte img[]); //reverses bit order for each byte of img
+
+byte * flipY(byte img[]); //reverses byte order
 
 byte * frameShift(byte img[], bool dir, bool axis, int offset); //returns img with proper offset
 
