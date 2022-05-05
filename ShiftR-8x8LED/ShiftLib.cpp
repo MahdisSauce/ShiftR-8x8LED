@@ -43,7 +43,7 @@ byte * frameShift(byte img[], bool dir, bool axis, int offset){ //returns img wi
 
 
 
-ledMatrix::ledMatrix(short x, short y, short z){
+ledMatrix::ledMatrix(byte x, byte y, byte z){
     dataPin = x;            //Assigning the pin variables to their repsective pins
     clockPin = y;
     latchPin = z;
