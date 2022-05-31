@@ -12,7 +12,7 @@ byte * flipX(byte img[]){ //reverses bit order for each byte of img
 byte * flipY(byte img[]){   //flips the order of the bytes
     byte* holder = new byte[8];
     for(int i = 0; i < 8; i++)
-        holder[i] = img[8 - i];
+        holder[i] = img[7 - i];
     
     return holder;
 }
