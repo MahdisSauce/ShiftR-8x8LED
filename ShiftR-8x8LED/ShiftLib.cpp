@@ -1,12 +1,13 @@
 #include "ShiftLib.h"
 
 byte * flipX(byte img[]){ //reverses bit order for each byte of img
+    byte* holder = new byte[8];
     for(int i = 0; i < 8; i++){
         img[i] = (img[i] & 0xF0) >> 4 | (img[i] & 0x0F) << 4;
         img[i] = (img[i] & 0xCC) >> 2 | (img[i] & 0x33) << 2;
-        img[i] = (img[i] & 0xAA) >> 1 | (img[i] & 0x55) << 1;
+        holder[i] = (img[i] & 0xAA) >> 1 | (img[i] & 0x55) << 1;
     }
-    return img;
+    return holder;
 }
 
 byte * flipY(byte img[]){   //flips the order of the bytes
