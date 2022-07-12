@@ -10,17 +10,19 @@ byte * frameShift(byte img[], bool dir, bool axis, int offset); //returns img wi
 
 class ledMatrix{
     private:
-        byte dataPin;        //Pin 14 On the Shift Register
-        byte clockPin;       //Pin 11 On the Shift Register
-        byte latchPin;       //Pin 12 On the Shift Register
+        short dataPin;        //Pin 14 On the Shift Register
+        short clockPin;       //Pin 11 On the Shift Register
+        short latchPin;       //Pin 12 On the Shift Register
     
     public:
         unsigned int prevMillis;    //Defining variable to be used for timing
         unsigned int currMillis;
+        unsigned int displayDelay;
         
-        ledMatrix(byte x, byte y, byte z); //Initializes the shift register pins
+        ledMatrix(short x, short y, short z); //Initializes the shift register pins
         
         void clearDisplay();    // Clears the display
+        void changeDelay(unsigned int);
 
         void toDisplay(byte img[]); //Displays the image
 
@@ -35,5 +37,5 @@ class ledMatrix{
         void fromVertical(byte img[], bool dir);
 
 };
-
+ 
 #endif

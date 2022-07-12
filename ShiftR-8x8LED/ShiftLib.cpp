@@ -1,22 +1,23 @@
 #include "ShiftLib.h"
 
 byte * flipX(byte img[]){ //reverses bit order for each byte of img
-    byte* holder = new byte[8];
+    byte* holder = new byte[8];                          //This flips the image horizantally
     for(int i = 0; i < 8; i++){
-        img[i] = (img[i] & 0xF0) >> 4 | (img[i] & 0x0F) << 4;
-        img[i] = (img[i] & 0xCC) >> 2 | (img[i] & 0x33) << 2;
-        holder[i] = (img[i] & 0xAA) >> 1 | (img[i] & 0x55) << 1;
+        img[i] = ((img[i] & 0xF0) >> 4 | (img[i] & 0x0F) << 4);
+        img[i] = ((img[i] & 0xCC) >> 2 | (img[i] & 0x33) << 2);
+        holder[i] = ((img[i] & 0xAA) >> 1 | (img[i] & 0x55) << 1);
     }
     return holder;
 }
 
-byte * flipY(byte img[]){   //flips the order of the bytes
+byte * flipY(byte img[]){
     byte* holder = new byte[8];
     for(int i = 0; i < 8; i++)
         holder[i] = img[7 - i];
     
     return holder;
 }
+
 
 byte * frameShift(byte img[], bool dir, bool axis, int offset){ //returns img with proper offset
     byte* holder = new byte[8];
@@ -44,10 +45,11 @@ byte * frameShift(byte img[], bool dir, bool axis, int offset){ //returns img wi
 
 
 
-ledMatrix::ledMatrix(byte x, byte y, byte z){
+ledMatrix::ledMatrix(short x, short y, short z){
     dataPin = x;            //Assigning the pin variables to their repsective pins
     clockPin = y;
     latchPin = z;
+    displayDelay = 300;
     pinMode(dataPin, OUTPUT);   //Setting the pins to outputs
     pinMode(clockPin, OUTPUT);
     pinMode(latchPin, OUTPUT);
@@ -58,6 +60,10 @@ void ledMatrix::clearDisplay(){            //Setting all outputs of the shift re
     shiftOut(dataPin, clockPin, LSBFIRST, 0);
     shiftOut(dataPin, clockPin, LSBFIRST, 0);
     digitalWrite(latchPin, HIGH);
+}
+
+void ledMatrix::changeDelay(unsigned int newDelay){
+    displayDelay = newDelay;
 }
 
 void ledMatrix::toDisplay(byte img[]){     //Displaying image bases on 8 Byte array sent to function
@@ -82,24 +88,24 @@ void ledMatrix::timedDisplay(byte img[], unsigned int interval){   //Displaying 
 }
 void ledMatrix::fromSide(byte img[], bool dir){ //Pans image from left or right off screen
     for(int i = 8; i >= 0; i--){
-        timedDisplay(frameShift(img, !dir, 0, i), 300);
+        timedDisplay(frameShift(img, !dir, 0, i), displayDelay);
     }
 }
 
 
 void ledMatrix::panDisplay(byte img[], bool dir){  //Pans the image left or right until off screen starting from the center
     for(int i = 0; i <= 8; i++){        //For loop to determine how far it is moved each frame
-        timedDisplay(frameShift(img, dir, 0, i), 300);
+        timedDisplay(frameShift(img, dir, 0, i), displayDelay);
     }   
 }
 void ledMatrix::ventDisplay(byte img[],bool dir){  //Pans image up or down until off screen starting from center
         for(int i = 0; i <= 8; i++){  
-            timedDisplay(frameShift(img, dir, 1, i), 300);
+            timedDisplay(frameShift(img, dir, 1, i), displayDelay);
         }
 }
 
 void ledMatrix::fromVertical(byte img[], bool dir){          
     for(int i = 8; i >= 0; i--){  
-        timedDisplay(frameShift(img, !dir, 1,  i), 300);
+        timedDisplay(frameShift(img, !dir, 1,  i), displayDelay);
     }
 }
