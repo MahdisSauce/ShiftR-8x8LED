@@ -10,7 +10,7 @@ byte * flipX(byte img[]){ //reverses bit order for each byte of img
     return holder;
 }
 
-byte * flipY(byte img[]){
+byte * flipY(byte img[]){       //Flips image vertically
     byte* holder = new byte[8];
     for(int i = 0; i < 8; i++)
         holder[i] = img[7 - i];
@@ -104,7 +104,7 @@ void ledMatrix::ventDisplay(byte img[],bool dir){  //Pans image up or down until
         }
 }
 
-void ledMatrix::fromVertical(byte img[], bool dir){          
+void ledMatrix::fromVertical(byte img[], bool dir){//Pans image from top or bottom of screen to center   
     for(int i = 8; i >= 0; i--){  
         timedDisplay(frameShift(img, !dir, 1,  i), displayDelay);
     }
