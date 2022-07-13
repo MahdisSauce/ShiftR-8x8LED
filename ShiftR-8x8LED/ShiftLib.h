@@ -22,7 +22,8 @@ class ledMatrix{
         ledMatrix(short x, short y, short z); //Initializes the shift register pins
         
         void clearDisplay();    // Clears the display
-        void changeDelay(unsigned int);
+        
+        void changeDelay(unsigned int); //Allows speed for animations to be changed
 
         void toDisplay(byte img[]); //Displays the image
 
@@ -30,11 +31,11 @@ class ledMatrix{
         
         void fromSide(byte img[], bool dir);    //Pans image from left or right off screen
 
-        void panDisplay(byte img[], bool dir);//Pans the image left or right until off screen starting from the center
+        void panDisplay(byte img[], bool dir);  //Pans the image left or right until off screen starting from the center
         
-        void ventDisplay(byte img[],bool dir);//Pans image up or down until off screen starting from center
+        void ventDisplay(byte img[],bool dir);  //Pans image up or down until off screen starting from center
 
-        void fromVertical(byte img[], bool dir);
+        void fromVertical(byte img[], bool dir);//Pans image from the top of screen to the center
 
 };
  
